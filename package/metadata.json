@@ -1,0 +1,15 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Category": "Utilities",
+        "Description": "Shows the balance of your DeepSeek API account",
+        "Icon": "wallet-open",
+        "Id": "com.github.bluecannonball.deepseekbalance",
+        "License": "GPL-2.0-or-later",
+        "Name": "DeepSeek Balance",
+        "Version": "1.0.0"
+    },
+    "X-Plasma-API": "declarativeappletscript",
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-MainScript": "ui/main.qml"
+}

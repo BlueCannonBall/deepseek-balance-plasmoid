@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    SPDX-FileCopyrightText: 2026
+    SPDX-License-Identifier: GPL-2.0-or-later
+-->
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0 http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+    <kcfgfile name=""/>
+
+    <group name="General">
+        <entry name="apiKey" type="String">
+            <label>DeepSeek API key used to read the account balance.</label>
+            <default></default>
+        </entry>
+        <entry name="refreshIntervalMinutes" type="Int">
+            <label>Minutes between automatic balance refreshes.</label>
+            <default>10</default>
+        </entry>
+        <entry name="balanceField" type="String">
+            <label>Which balance value is shown in the panel.</label>
+            <default>total_balance</default>
+        </entry>
+        <entry name="preferredCurrency" type="String">
+            <label>Preferred currency, or empty to use the first one returned.</label>
+            <default></default>
+        </entry>
+        <entry name="lowBalanceThreshold" type="Int">
+            <label>Warn when the selected balance drops below this value. Zero disables the warning.</label>
+            <default>0</default>
+        </entry>
+        <entry name="showCurrencyCode" type="Bool">
+            <label>Show the ISO currency code next to the symbol.</label>
+            <default>false</default>
+        </entry>
+
+        <!-- Internal state for the estimated "spent today" figure. Not shown
+             in the configuration dialog; written by the applet on each
+             successful refresh. -->
+        <entry name="spentToday" type="Double">
+            <label>Estimated spend for the current local day, in spendCurrency.</label>
+            <default>0</default>
+        </entry>
+        <entry name="spendDay" type="String">
+            <label>Local date (yyyy-MM-dd) that spentToday belongs to.</label>
+            <default></default>
+        </entry>
+        <entry name="spendCurrency" type="String">
+            <label>Currency that spentToday is expressed in.</label>
+            <default></default>
+        </entry>
+        <entry name="spendLastTotal" type="Double">
+            <label>Last observed total balance, diffed against the next refresh.</label>
+            <default>0</default>
+        </entry>
+        <entry name="spendLastGranted" type="Double">
+            <label>Last observed granted balance.</label>
+            <default>0</default>
+        </entry>
+        <entry name="spendLastToppedUp" type="Double">
+            <label>Last observed topped-up balance.</label>
+            <default>0</default>
+        </entry>
+    </group>
+</kcfg>

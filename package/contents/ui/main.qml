@@ -38,7 +38,7 @@ PlasmoidItem {
     readonly property bool configured: apiKey.length > 0
     readonly property int requestTimeoutMs: 30000
     // DeepSeek's own docs only link to https://platform.deepseek.com/ ; the
-    // /top_up route is not documented, but several public projects use it.
+    // /top_up route is not officially documented, but it is confirmed working.
     readonly property string topUpUrl: "https://platform.deepseek.com/top_up"
 
     property var balanceInfos: []

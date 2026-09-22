@@ -53,7 +53,7 @@ Right-click the widget → *Configure…*:
   <https://platform.deepseek.com/api_keys>.
 - **Refresh every (minutes)** — automatic refresh interval, default 10.
 - **Warn below** — when the selected balance drops under this value the amount
-  turns red and the widget asks for attention. `0` disables the warning.
+  turns amber and the widget asks for attention. `0` disables the warning.
 - **Panel shows** — total, topped-up, or granted balance.
 - **Preferred currency** — *Automatic* uses the first currency DeepSeek
   returns; `CNY` and `USD` pick a specific entry when the account has both.
@@ -61,7 +61,9 @@ Right-click the widget → *Configure…*:
 
 The balance is also refreshed on start, from the *Refresh* button in the
 expanded view, and from *Refresh DeepSeek balance* in the widget's right-click
-menu.
+menu. To add funds, the *Top up* button in the expanded view (or *Top up
+DeepSeek balance* in the right-click menu) opens DeepSeek's top-up page in your
+browser.
 
 ## Granted balance and "spent today"
 

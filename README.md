@@ -8,6 +8,8 @@ timer and shows the total, topped-up, and granted balance for each currency
 DeepSeek returns. It also estimates how much was spent today, shown in the
 tooltip and the expanded view.
 
+![The applet expanded, showing a USD account with total, topped-up and granted balances, a "Spent today" figure, and the panel entry](screenshots/screenshot.png)
+
 ## Requirements
 
 - Plasma 6 (`plasmashell 6.x`), `kpackagetool6`.
@@ -118,6 +120,7 @@ something you may need to rotate.
 
 ```
 .gitignore
+screenshots/screenshot.png                screenshot used in this README
 package/metadata.json                     applet metadata (Id com.github.bluecannonball.deepseekbalance)
 package/contents/config/main.xml          KConfig XT entries
 package/contents/config/config.qml        configuration category

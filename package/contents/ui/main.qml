@@ -217,14 +217,21 @@ PlasmoidItem {
             spacing: Kirigami.Units.smallSpacing
 
             Kirigami.Icon {
-                source: root.lastError !== "" ? "dialog-warning" : "wallet-open"
+                source: {
+                    if (root.lastError !== "") {
+                        return "dialog-warning";
+                    }
+                    if (root.lowBalance) {
+                        return "data-warning";
+                    }
+                    return "wallet-open";
+                }
                 Layout.preferredWidth: Kirigami.Units.iconSizes.small
                 Layout.preferredHeight: Kirigami.Units.iconSizes.small
             }
 
             PlasmaComponents.Label {
                 text: root.panelText()
-                color: root.lowBalance ? Kirigami.Theme.neutralTextColor : Kirigami.Theme.textColor
             }
         }
 

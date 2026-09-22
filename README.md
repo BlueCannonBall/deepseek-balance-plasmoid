@@ -52,8 +52,9 @@ Right-click the widget → *Configure…*:
 - **API key** — your DeepSeek key (`sk-…`), created at
   <https://platform.deepseek.com/api_keys>.
 - **Refresh every (minutes)** — automatic refresh interval, default 10.
-- **Warn below** — when the selected balance drops under this value the amount
-  turns amber and the widget asks for attention. `0` disables the warning.
+- **Warn below** — when the selected balance drops under this value the panel
+  icon switches to a warning glyph and the expanded view's total turns amber,
+  and the widget asks for attention. `0` disables the warning.
 - **Panel shows** — total, topped-up, or granted balance.
 - **Preferred currency** — *Automatic* uses the first currency DeepSeek
   returns; `CNY` and `USD` pick a specific entry when the account has both.

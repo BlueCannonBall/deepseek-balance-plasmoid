@@ -198,14 +198,13 @@ PlasmoidItem {
 
             Kirigami.Icon {
                 source: root.lastError !== "" ? "dialog-warning" : "wallet-open"
-                color: root.lowBalance ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.textColor
                 Layout.preferredWidth: Kirigami.Units.iconSizes.small
                 Layout.preferredHeight: Kirigami.Units.iconSizes.small
             }
 
             PlasmaComponents.Label {
                 text: root.panelText()
-                color: root.lowBalance ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.textColor
+                color: root.lowBalance ? Kirigami.Theme.neutralTextColor : Kirigami.Theme.textColor
             }
         }
 
@@ -288,7 +287,7 @@ PlasmoidItem {
                     PlasmaComponents.Label {
                         text: root.formatAmountFor(modelData, "total_balance")
                         font.bold: true
-                        color: root.lowBalance ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.textColor
+                        color: root.lowBalance ? Kirigami.Theme.neutralTextColor : Kirigami.Theme.textColor
                     }
                 }
 

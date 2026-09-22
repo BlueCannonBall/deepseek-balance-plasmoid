@@ -37,6 +37,9 @@ PlasmoidItem {
     readonly property string apiKey: (plasmoid.configuration.apiKey || "").trim()
     readonly property bool configured: apiKey.length > 0
     readonly property int requestTimeoutMs: 30000
+    // DeepSeek's own docs only link to https://platform.deepseek.com/ ; the
+    // /top_up route is not documented, but several public projects use it.
+    readonly property string topUpUrl: "https://platform.deepseek.com/top_up"
 
     property var balanceInfos: []
     property bool fundsAvailable: false
@@ -365,6 +368,12 @@ PlasmoidItem {
             }
 
             PlasmaComponents.Button {
+                text: i18n("Top up")
+                icon.name: "list-add"
+                onClicked: Qt.openUrlExternally(root.topUpUrl)
+            }
+
+            PlasmaComponents.Button {
                 text: i18n("Refresh")
                 icon.name: "view-refresh"
                 enabled: root.configured && !root.loading
@@ -374,6 +383,11 @@ PlasmoidItem {
     }
 
     Plasmoid.contextualActions: [
+        PlasmaCore.Action {
+            text: i18n("Top up DeepSeek balance")
+            icon.name: "list-add"
+            onTriggered: Qt.openUrlExternally(root.topUpUrl)
+        },
         PlasmaCore.Action {
             text: i18n("Refresh DeepSeek balance")
             icon.name: "view-refresh"

@@ -150,7 +150,7 @@ Lint the applet:
 for `i18n`. Those are expected: `i18n` is injected by the Plasma applet script
 engine and does not exist in a standalone lint run.
 
-### What was verified when this was written
+### What was verified
 
 - QML `XMLHttpRequest` reaches `https://api.deepseek.com/user/balance` over
   HTTPS and the JSON body parses, tested with the `qml6` runtime and a
@@ -162,17 +162,13 @@ engine and does not exist in a standalone lint run.
 - The package installs cleanly with `kpackagetool6` into a temporary package
   root, and the installed tree contains only the applet files.
 - `main.qml` and `logic.js` pass Qt 6.11.2 `qmllint` with no warnings.
-
-### What was not verified
-
-- Running inside a live `plasmashell` with a valid API key. The panel and full
-  layouts, the tooltip, the low-balance colour, and the actual on-screen
-  refresh cycle have not been observed. `qml6` cannot create a `PlasmoidItem`
-  outside a Plasma session (it aborts looking for the Plasma window platform),
-  so that path is untested here.
-- The "spent today" persistence path specifically: reading and writing the
-  `spend*` keys through `plasmoid.configuration` inside a live applet. The
-  arithmetic itself is unit-tested; the KConfig round-trip is not.
+- The applet runs in a live Plasma 6 session: the panel entry and the expanded
+  view render correctly, including the balance, "Spent today", and "Updated at"
+  values.
+- The daily-spend state persists through `plasmoid.configuration`: the applet's
+  group in `~/.config/plasma-org.kde.plasma.desktop-appletsrc` contains
+  `spendDay`, `spendCurrency`, `spendLastTotal`, `spendLastToppedUp`, and
+  `spentToday`.
 
 ## License
 

@@ -36,10 +36,12 @@ PlasmoidItem {
 
     readonly property string apiKey: (plasmoid.configuration.apiKey || "").trim()
     readonly property bool configured: apiKey.length > 0
+    readonly property int requestTimeoutMs: 30000
 
     property var balanceInfos: []
     property bool fundsAvailable: false
     property bool loading: false
+    property var activeRequest: null
     property string lastError: ""
     property double lastUpdated: 0
 
@@ -144,10 +146,22 @@ PlasmoidItem {
         let timedOut = false;
 
         const xhr = new XMLHttpRequest();
+        // Keep the request reachable: a purely local XMLHttpRequest can be
+        // garbage collected mid-flight, after which no handler ever runs.
+        activeRequest = xhr;
+
         xhr.open("GET", "https://api.deepseek.com/user/balance");
         xhr.setRequestHeader("Authorization", "Bearer " + apiKey);
         xhr.setRequestHeader("Accept", "application/json");
-        xhr.timeout = 30000;
+        xhr.timeout = requestTimeoutMs;
+
+        function settle() {
+            requestWatchdog.stop();
+            if (activeRequest === xhr) {
+                activeRequest = null;
+            }
+            loading = false;
+        }
 
         xhr.ontimeout = function () {
             timedOut = true;
@@ -157,7 +171,7 @@ PlasmoidItem {
             if (xhr.readyState !== XMLHttpRequest.DONE) {
                 return;
             }
-            root.loading = false;
+            settle();
 
             if (xhr.status === 200) {
                 const parsed = Logic.parseBalanceResponse(xhr.responseText);
@@ -184,6 +198,9 @@ PlasmoidItem {
                 || i18n("DeepSeek replied with HTTP status %1.", xhr.status);
         };
 
+        // Qt's XMLHttpRequest timeout is not honoured for a stalled TCP
+        // connect, so the watchdog is what actually ends such a request.
+        requestWatchdog.restart();
         xhr.send();
     }
 
@@ -364,6 +381,24 @@ PlasmoidItem {
             onTriggered: root.refresh()
         }
     ]
+
+    Timer {
+        id: requestWatchdog
+        interval: root.requestTimeoutMs + 5000
+        repeat: false
+
+        onTriggered: {
+            if (!root.loading) {
+                return;
+            }
+            if (root.activeRequest) {
+                root.activeRequest.abort();
+                root.activeRequest = null;
+            }
+            root.loading = false;
+            root.lastError = i18n("The request to DeepSeek timed out.");
+        }
+    }
 
     Timer {
         interval: Math.max(1, plasmoid.configuration.refreshIntervalMinutes) * 60 * 1000
